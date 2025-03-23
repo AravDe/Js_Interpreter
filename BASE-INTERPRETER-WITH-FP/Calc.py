@@ -98,9 +98,44 @@ class Interpreter(Parser):
 
     # noinspection SpellCheckingInspection
     tokens = (
-        'NAME', 'NUMBER',
-        'PLUS', 'MINUS', 'EXP', 'TIMES','FL_DIVIDE', 'DIVIDE','EQUALS',
-        'LPAREN', 'RPAREN'
+        'NAME', 
+        'NUMBER',
+        
+        'PLUS', 
+        'MINUS', 
+        'EXP',
+        'TIMES',
+        'FL_DIVIDE', 
+        'DIVIDE',
+        'ASSIGN', # =
+        'INCREMENT',
+        'DECREMENT',
+
+        'LPAREN', 
+        'RPAREN',
+        'RCURLY',
+        'LCURLY',
+
+        'IF',
+        'ELSE',
+
+        'WHILE',
+        'FOR',
+
+        'FUNCTION',
+        'RETURN',
+        'BREAK',
+        'PASS',
+
+        'EQUALS', # ==
+        'LESSER',
+        'LESSER_EQ'
+        'GREATER',
+        'GREATER_EQ',
+        'NOT', 
+        'NOT_EQ',
+        'AND',
+        'OR'
     )
 
     # Tokens
@@ -111,7 +146,7 @@ class Interpreter(Parser):
     t_TIMES = r'\*'
     t_FL_DIVIDE = r'//'
     t_DIVIDE = r'/'
-    t_EQUALS = r'='
+    t_ASSIGN = r'='
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -170,13 +205,13 @@ class Interpreter(Parser):
     )
 
     def p_statement_assign(self, p):
-        """statement : NAME EQUALS expression"""
+        """statement : NAME ASSIGN expression"""
         self.names[p[1]] = p[3]
 
     # noinspection PyMethodMayBeStatic
     def p_statement_expr(self, p):
         """statement : expression"""
-        print(p[1], 'Hekko')
+        print(p[1]f)
 
     def p_statement_quit(self, p):
         '''statement : NAME'''
