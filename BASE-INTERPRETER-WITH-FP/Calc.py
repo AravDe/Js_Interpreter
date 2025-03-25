@@ -30,6 +30,7 @@ import sys
 import ply.lex as lex
 import ply.yacc as yacc
 import os
+import math
 # from icecream import ic  # 2024-07-27, DMW, useful for debugging
 
 
@@ -97,7 +98,7 @@ class Interpreter(Parser):
         return ans
 
     # noinspection SpellCheckingInspection
-    tokens = (
+    tokens = [
         'NAME', 
         'NUMBER',
         
@@ -110,6 +111,13 @@ class Interpreter(Parser):
         'ASSIGN', # =
         'INCREMENT',
         'DECREMENT',
+        'SIN',
+        'COS',
+        'TAN',
+        'ACOS',
+        'ASIN',
+        'ATAN',
+        'ATAN2',
 
         'LPAREN', 
         'RPAREN',
@@ -120,7 +128,7 @@ class Interpreter(Parser):
         'ELSE',
 
         'WHILE',
-        'FOR',
+        'FOR',                         #3/24/25 Added tokens 
 
         'FUNCTION',
         'RETURN',
@@ -129,29 +137,56 @@ class Interpreter(Parser):
 
         'EQUALS', # ==
         'LESSER',
-        'LESSER_EQ'
+        'LESSER_EQ',
         'GREATER',
         'GREATER_EQ',
         'NOT', 
         'NOT_EQ',
         'AND',
         'OR'
-    )
+    ]
 
     # Tokens
-
+    reserved_words = {
+   'quit': 'QUIT',
+   'sin':'SIN',
+   'cos':'COS',
+   'tan':'TAN',
+   'asin':'ASIN',
+   'acos':'ACOS',
+   'atan':'ATAN',
+   'atan2':'ATAN2'
+    }
+    
+    tokens += list(reserved_words.values())
+    
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_EXP = r'\*\*'
     t_TIMES = r'\*'
     t_FL_DIVIDE = r'//'
     t_DIVIDE = r'/'
+    t_INCREMENT = r'\+\+'
+    t_DECREMENT = r'\-\-'
     t_ASSIGN = r'='
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
-    t_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    
+    t_LCURLY = r'\{'
+    t_RCURLY = r'\}'
+    t_LESSER = r'\<'
+    t_GREATER = r'\>'
+    t_LESSER_EQ = r'\<\='
+    t_GREATER_EQ = r'\>\='     
 
+    # t_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
+    # 2021-05-29, DMW, rewrote token NAME, check for reserved words
+    # noinspection PyPep8Naming
+    # noinspection PySingleQuotedDocstring
+    def t_NAME(self, t):
+        r'[a-zA-Z_][a-zA-Z0-9_]*'
+        t.type = self.reserved_words.get(t.value, 'NAME')  # Check for reserved words
+        return t
+    
     # noinspection PyPep8Naming
     # noinspection PyMethodMayBeStatic
     # 2025-03-10, DMW, remarked (commented) out the following method
@@ -207,11 +242,11 @@ class Interpreter(Parser):
     def p_statement_assign(self, p):
         """statement : NAME ASSIGN expression"""
         self.names[p[1]] = p[3]
-
+        
     # noinspection PyMethodMayBeStatic
     def p_statement_expr(self, p):
         """statement : expression"""
-        print(p[1]f)
+        print(p[1])
 
     def p_statement_quit(self, p):
         '''statement : NAME'''
@@ -235,7 +270,7 @@ class Interpreter(Parser):
                    | expression EXP expression
                    | expression FL_DIVIDE expression
         """
-        # print [repr(p[i]) for i in range(0,4)]
+        #print ([repr(p[i]) for i in range(0,4)])
         if p[2] == '+':
             p[0] = p[1] + p[3]
         elif p[2] == '-':
@@ -282,13 +317,41 @@ class Interpreter(Parser):
             print("Undefined name '%s'" % p[1])
             p[0] = 0
 
+    def p_expression_trig(self,p):
+        """
+        expression : SIN expression
+        expression : COS expression
+        expression : TAN expression
+        expression : ASIN expression
+        expression : ACOS expression
+        expression : ATAN expression
+        expression : ATAN2 expression
+        """
+        p[2] = math.radians(int(p[2]))
+        if p[1] == 'sin':
+            p[0] = math.sin(p[2])
+        if p[1] == 'cos':
+            p[0] = math.cos(p[2])
+        if p[1] == 'tan':
+            p[0] = math.tan(p[2])
+        if p[1] == 'asin':
+            p[0] = math.asin(p[2])
+        if p[1] == 'acos':
+            p[0] = math.acos(p[2])
+        if p[1] == 'atan':
+            p[0] = math.atan(p[2])
+        if p[1] == 'atan2':
+            p[0] = math.atan2(p[2])
+
+
     # noinspection PyMethodMayBeStatic
+
     def p_error(self, p):
         if p:
             print("Syntax error at '%s'" % p.value)
         else:
             print("Syntax error at EOF")
-
+    
 
 if __name__ == '__main__':
     calc = Interpreter(repl_prompt="Calc >")

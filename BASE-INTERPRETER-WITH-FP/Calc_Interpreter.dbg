@@ -15,6 +15,7 @@ Rule 9     expression -> LPAREN expression RPAREN
 Rule 10    expression -> NUMBER
 Rule 11    expression -> NAME
 Rule 12    expression -> expression FL_DIVIDE expression
+Rule 13    expression -> SIN expression
 
 Terminals, with rules where they appear
 
