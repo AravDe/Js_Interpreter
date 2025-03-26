@@ -111,29 +111,11 @@ class Interpreter(Parser):
         'ASSIGN', # =
         'INCREMENT',
         'DECREMENT',
-        'SIN',
-        'COS',
-        'TAN',
-        'ACOS',
-        'ASIN',
-        'ATAN',
-        'ATAN2',
 
         'LPAREN', 
         'RPAREN',
         'RCURLY',
         'LCURLY',
-
-        'IF',
-        'ELSE',
-
-        'WHILE',
-        'FOR',                         #3/24/25 Added tokens 
-
-        'FUNCTION',
-        'RETURN',
-        'BREAK',
-        'PASS',
 
         'EQUALS', # ==
         'LESSER',
@@ -155,7 +137,16 @@ class Interpreter(Parser):
    'asin':'ASIN',
    'acos':'ACOS',
    'atan':'ATAN',
-   'atan2':'ATAN2'
+   'atan2':'ATAN2',
+   'print':'PRINT',
+   'if' : 'IF',
+   'else':'ELSE',
+   'while':'WHILE',
+   'for':'FOR',                         #3/24/25 Added tokens 
+   'fun':'FUNCTION',
+   'return':'RETURN',
+   'break':'BREAK',
+   'pass':'PASS'
     }
     
     tokens += list(reserved_words.values())
@@ -345,7 +336,11 @@ class Interpreter(Parser):
 
 
     # noinspection PyMethodMayBeStatic
-
+    def p_print(self, p):
+        '''
+        expression : PRINT LPAREN expression RPAREN
+        '''
+        p[0] = p[3]
     def p_error(self, p):
         if p:
             print("Syntax error at '%s'" % p.value)
