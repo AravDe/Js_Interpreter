@@ -1,0 +1,993 @@
+Created by PLY (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ACOS
+    ASIN
+    ATAN
+    ATAN2
+    BREAK
+    COS
+    ELSE
+    FL_DIVIDE
+    FOR
+    FUNCTION
+    IF
+    PASS
+    QUIT
+    RETURN
+    SIN
+    TAN
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> opt_stmts
+Rule 2     opt_stmts -> stmt_list
+Rule 3     opt_stmts -> <empty>
+Rule 4     stmt_list -> statement
+Rule 5     stmt_list -> stmt_list statement
+Rule 6     statement -> ID = expr
+Rule 7     statement -> WRITE ( expr )
+Rule 8     statement -> WRITELN ( expr )
+Rule 9     statement -> WHILE expr { stmt_list }
+Rule 10    expr -> expr + expr
+Rule 11    expr -> expr - expr
+Rule 12    expr -> expr * expr
+Rule 13    expr -> expr / expr
+Rule 14    expr -> expr % expr
+Rule 15    expr -> expr < expr
+Rule 16    expr -> - expr
+Rule 17    expr -> ( expr )
+Rule 18    expr -> NUMBER
+Rule 19    expr -> SQ_STRING
+Rule 20    expr -> DQ_STRING
+Rule 21    expr -> ID
+
+Terminals, with rules where they appear
+
+%                    : 14
+(                    : 7 8 17
+)                    : 7 8 17
+*                    : 12
++                    : 10
+-                    : 11 16
+/                    : 13
+<                    : 15
+=                    : 6
+ACOS                 : 
+ASIN                 : 
+ATAN                 : 
+ATAN2                : 
+BREAK                : 
+COS                  : 
+DQ_STRING            : 20
+ELSE                 : 
+FL_DIVIDE            : 
+FOR                  : 
+FUNCTION             : 
+ID                   : 6 21
+IF                   : 
+NUMBER               : 18
+PASS                 : 
+QUIT                 : 
+RETURN               : 
+SIN                  : 
+SQ_STRING            : 19
+TAN                  : 
+WHILE                : 9
+WRITE                : 7
+WRITELN              : 8
+error                : 
+{                    : 9
+}                    : 9
+
+Nonterminals, with rules where they appear
+
+expr                 : 6 7 8 9 10 10 11 11 12 12 13 13 14 14 15 15 16 17
+opt_stmts            : 1
+program              : 0
+statement            : 4 5
+stmt_list            : 2 5 9
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . opt_stmts
+    (2) opt_stmts -> . stmt_list
+    (3) opt_stmts -> .
+    (4) stmt_list -> . statement
+    (5) stmt_list -> . stmt_list statement
+    (6) statement -> . ID = expr
+    (7) statement -> . WRITE ( expr )
+    (8) statement -> . WRITELN ( expr )
+    (9) statement -> . WHILE expr { stmt_list }
+
+    $end            reduce using rule 3 (opt_stmts -> .)
+    ID              shift and go to state 5
+    WRITE           shift and go to state 6
+    WRITELN         shift and go to state 7
+    WHILE           shift and go to state 8
+
+    program                        shift and go to state 1
+    opt_stmts                      shift and go to state 2
+    stmt_list                      shift and go to state 3
+    statement                      shift and go to state 4
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> opt_stmts .
+
+    $end            reduce using rule 1 (program -> opt_stmts .)
+
+
+state 3
+
+    (2) opt_stmts -> stmt_list .
+    (5) stmt_list -> stmt_list . statement
+    (6) statement -> . ID = expr
+    (7) statement -> . WRITE ( expr )
+    (8) statement -> . WRITELN ( expr )
+    (9) statement -> . WHILE expr { stmt_list }
+
+    $end            reduce using rule 2 (opt_stmts -> stmt_list .)
+    ID              shift and go to state 5
+    WRITE           shift and go to state 6
+    WRITELN         shift and go to state 7
+    WHILE           shift and go to state 8
+
+    statement                      shift and go to state 9
+
+state 4
+
+    (4) stmt_list -> statement .
+
+    ID              reduce using rule 4 (stmt_list -> statement .)
+    WRITE           reduce using rule 4 (stmt_list -> statement .)
+    WRITELN         reduce using rule 4 (stmt_list -> statement .)
+    WHILE           reduce using rule 4 (stmt_list -> statement .)
+    $end            reduce using rule 4 (stmt_list -> statement .)
+    }               reduce using rule 4 (stmt_list -> statement .)
+
+
+state 5
+
+    (6) statement -> ID . = expr
+
+    =               shift and go to state 10
+
+
+state 6
+
+    (7) statement -> WRITE . ( expr )
+
+    (               shift and go to state 11
+
+
+state 7
+
+    (8) statement -> WRITELN . ( expr )
+
+    (               shift and go to state 12
+
+
+state 8
+
+    (9) statement -> WHILE . expr { stmt_list }
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 13
+
+state 9
+
+    (5) stmt_list -> stmt_list statement .
+
+    ID              reduce using rule 5 (stmt_list -> stmt_list statement .)
+    WRITE           reduce using rule 5 (stmt_list -> stmt_list statement .)
+    WRITELN         reduce using rule 5 (stmt_list -> stmt_list statement .)
+    WHILE           reduce using rule 5 (stmt_list -> stmt_list statement .)
+    $end            reduce using rule 5 (stmt_list -> stmt_list statement .)
+    }               reduce using rule 5 (stmt_list -> stmt_list statement .)
+
+
+state 10
+
+    (6) statement -> ID = . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 20
+
+state 11
+
+    (7) statement -> WRITE ( . expr )
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 21
+
+state 12
+
+    (8) statement -> WRITELN ( . expr )
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 22
+
+state 13
+
+    (9) statement -> WHILE expr . { stmt_list }
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               shift and go to state 23
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+    <               shift and go to state 29
+
+
+state 14
+
+    (16) expr -> - . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 30
+
+state 15
+
+    (17) expr -> ( . expr )
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 31
+
+state 16
+
+    (18) expr -> NUMBER .
+
+    {               reduce using rule 18 (expr -> NUMBER .)
+    +               reduce using rule 18 (expr -> NUMBER .)
+    -               reduce using rule 18 (expr -> NUMBER .)
+    *               reduce using rule 18 (expr -> NUMBER .)
+    /               reduce using rule 18 (expr -> NUMBER .)
+    %               reduce using rule 18 (expr -> NUMBER .)
+    <               reduce using rule 18 (expr -> NUMBER .)
+    ID              reduce using rule 18 (expr -> NUMBER .)
+    WRITE           reduce using rule 18 (expr -> NUMBER .)
+    WRITELN         reduce using rule 18 (expr -> NUMBER .)
+    WHILE           reduce using rule 18 (expr -> NUMBER .)
+    $end            reduce using rule 18 (expr -> NUMBER .)
+    }               reduce using rule 18 (expr -> NUMBER .)
+    )               reduce using rule 18 (expr -> NUMBER .)
+
+
+state 17
+
+    (19) expr -> SQ_STRING .
+
+    {               reduce using rule 19 (expr -> SQ_STRING .)
+    +               reduce using rule 19 (expr -> SQ_STRING .)
+    -               reduce using rule 19 (expr -> SQ_STRING .)
+    *               reduce using rule 19 (expr -> SQ_STRING .)
+    /               reduce using rule 19 (expr -> SQ_STRING .)
+    %               reduce using rule 19 (expr -> SQ_STRING .)
+    <               reduce using rule 19 (expr -> SQ_STRING .)
+    ID              reduce using rule 19 (expr -> SQ_STRING .)
+    WRITE           reduce using rule 19 (expr -> SQ_STRING .)
+    WRITELN         reduce using rule 19 (expr -> SQ_STRING .)
+    WHILE           reduce using rule 19 (expr -> SQ_STRING .)
+    $end            reduce using rule 19 (expr -> SQ_STRING .)
+    }               reduce using rule 19 (expr -> SQ_STRING .)
+    )               reduce using rule 19 (expr -> SQ_STRING .)
+
+
+state 18
+
+    (20) expr -> DQ_STRING .
+
+    {               reduce using rule 20 (expr -> DQ_STRING .)
+    +               reduce using rule 20 (expr -> DQ_STRING .)
+    -               reduce using rule 20 (expr -> DQ_STRING .)
+    *               reduce using rule 20 (expr -> DQ_STRING .)
+    /               reduce using rule 20 (expr -> DQ_STRING .)
+    %               reduce using rule 20 (expr -> DQ_STRING .)
+    <               reduce using rule 20 (expr -> DQ_STRING .)
+    ID              reduce using rule 20 (expr -> DQ_STRING .)
+    WRITE           reduce using rule 20 (expr -> DQ_STRING .)
+    WRITELN         reduce using rule 20 (expr -> DQ_STRING .)
+    WHILE           reduce using rule 20 (expr -> DQ_STRING .)
+    $end            reduce using rule 20 (expr -> DQ_STRING .)
+    }               reduce using rule 20 (expr -> DQ_STRING .)
+    )               reduce using rule 20 (expr -> DQ_STRING .)
+
+
+state 19
+
+    (21) expr -> ID .
+
+    {               reduce using rule 21 (expr -> ID .)
+    +               reduce using rule 21 (expr -> ID .)
+    -               reduce using rule 21 (expr -> ID .)
+    *               reduce using rule 21 (expr -> ID .)
+    /               reduce using rule 21 (expr -> ID .)
+    %               reduce using rule 21 (expr -> ID .)
+    <               reduce using rule 21 (expr -> ID .)
+    ID              reduce using rule 21 (expr -> ID .)
+    WRITE           reduce using rule 21 (expr -> ID .)
+    WRITELN         reduce using rule 21 (expr -> ID .)
+    WHILE           reduce using rule 21 (expr -> ID .)
+    $end            reduce using rule 21 (expr -> ID .)
+    }               reduce using rule 21 (expr -> ID .)
+    )               reduce using rule 21 (expr -> ID .)
+
+
+state 20
+
+    (6) statement -> ID = expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    ID              reduce using rule 6 (statement -> ID = expr .)
+    WRITE           reduce using rule 6 (statement -> ID = expr .)
+    WRITELN         reduce using rule 6 (statement -> ID = expr .)
+    WHILE           reduce using rule 6 (statement -> ID = expr .)
+    $end            reduce using rule 6 (statement -> ID = expr .)
+    }               reduce using rule 6 (statement -> ID = expr .)
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+    <               shift and go to state 29
+
+
+state 21
+
+    (7) statement -> WRITE ( expr . )
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    )               shift and go to state 32
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+    <               shift and go to state 29
+
+
+state 22
+
+    (8) statement -> WRITELN ( expr . )
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    )               shift and go to state 33
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+    <               shift and go to state 29
+
+
+state 23
+
+    (9) statement -> WHILE expr { . stmt_list }
+    (4) stmt_list -> . statement
+    (5) stmt_list -> . stmt_list statement
+    (6) statement -> . ID = expr
+    (7) statement -> . WRITE ( expr )
+    (8) statement -> . WRITELN ( expr )
+    (9) statement -> . WHILE expr { stmt_list }
+
+    ID              shift and go to state 5
+    WRITE           shift and go to state 6
+    WRITELN         shift and go to state 7
+    WHILE           shift and go to state 8
+
+    stmt_list                      shift and go to state 34
+    statement                      shift and go to state 4
+
+state 24
+
+    (10) expr -> expr + . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 35
+
+state 25
+
+    (11) expr -> expr - . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 36
+
+state 26
+
+    (12) expr -> expr * . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 37
+
+state 27
+
+    (13) expr -> expr / . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 38
+
+state 28
+
+    (14) expr -> expr % . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 39
+
+state 29
+
+    (15) expr -> expr < . expr
+    (10) expr -> . expr + expr
+    (11) expr -> . expr - expr
+    (12) expr -> . expr * expr
+    (13) expr -> . expr / expr
+    (14) expr -> . expr % expr
+    (15) expr -> . expr < expr
+    (16) expr -> . - expr
+    (17) expr -> . ( expr )
+    (18) expr -> . NUMBER
+    (19) expr -> . SQ_STRING
+    (20) expr -> . DQ_STRING
+    (21) expr -> . ID
+
+    -               shift and go to state 14
+    (               shift and go to state 15
+    NUMBER          shift and go to state 16
+    SQ_STRING       shift and go to state 17
+    DQ_STRING       shift and go to state 18
+    ID              shift and go to state 19
+
+    expr                           shift and go to state 40
+
+state 30
+
+    (16) expr -> - expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 16 (expr -> - expr .)
+    +               reduce using rule 16 (expr -> - expr .)
+    -               reduce using rule 16 (expr -> - expr .)
+    *               reduce using rule 16 (expr -> - expr .)
+    /               reduce using rule 16 (expr -> - expr .)
+    %               reduce using rule 16 (expr -> - expr .)
+    <               reduce using rule 16 (expr -> - expr .)
+    ID              reduce using rule 16 (expr -> - expr .)
+    WRITE           reduce using rule 16 (expr -> - expr .)
+    WRITELN         reduce using rule 16 (expr -> - expr .)
+    WHILE           reduce using rule 16 (expr -> - expr .)
+    $end            reduce using rule 16 (expr -> - expr .)
+    }               reduce using rule 16 (expr -> - expr .)
+    )               reduce using rule 16 (expr -> - expr .)
+
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! *               [ shift and go to state 26 ]
+  ! /               [ shift and go to state 27 ]
+  ! %               [ shift and go to state 28 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 31
+
+    (17) expr -> ( expr . )
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    )               shift and go to state 41
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+    <               shift and go to state 29
+
+
+state 32
+
+    (7) statement -> WRITE ( expr ) .
+
+    ID              reduce using rule 7 (statement -> WRITE ( expr ) .)
+    WRITE           reduce using rule 7 (statement -> WRITE ( expr ) .)
+    WRITELN         reduce using rule 7 (statement -> WRITE ( expr ) .)
+    WHILE           reduce using rule 7 (statement -> WRITE ( expr ) .)
+    $end            reduce using rule 7 (statement -> WRITE ( expr ) .)
+    }               reduce using rule 7 (statement -> WRITE ( expr ) .)
+
+
+state 33
+
+    (8) statement -> WRITELN ( expr ) .
+
+    ID              reduce using rule 8 (statement -> WRITELN ( expr ) .)
+    WRITE           reduce using rule 8 (statement -> WRITELN ( expr ) .)
+    WRITELN         reduce using rule 8 (statement -> WRITELN ( expr ) .)
+    WHILE           reduce using rule 8 (statement -> WRITELN ( expr ) .)
+    $end            reduce using rule 8 (statement -> WRITELN ( expr ) .)
+    }               reduce using rule 8 (statement -> WRITELN ( expr ) .)
+
+
+state 34
+
+    (9) statement -> WHILE expr { stmt_list . }
+    (5) stmt_list -> stmt_list . statement
+    (6) statement -> . ID = expr
+    (7) statement -> . WRITE ( expr )
+    (8) statement -> . WRITELN ( expr )
+    (9) statement -> . WHILE expr { stmt_list }
+
+    }               shift and go to state 42
+    ID              shift and go to state 5
+    WRITE           shift and go to state 6
+    WRITELN         shift and go to state 7
+    WHILE           shift and go to state 8
+
+    statement                      shift and go to state 9
+
+state 35
+
+    (10) expr -> expr + expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 10 (expr -> expr + expr .)
+    +               reduce using rule 10 (expr -> expr + expr .)
+    -               reduce using rule 10 (expr -> expr + expr .)
+    <               reduce using rule 10 (expr -> expr + expr .)
+    ID              reduce using rule 10 (expr -> expr + expr .)
+    WRITE           reduce using rule 10 (expr -> expr + expr .)
+    WRITELN         reduce using rule 10 (expr -> expr + expr .)
+    WHILE           reduce using rule 10 (expr -> expr + expr .)
+    $end            reduce using rule 10 (expr -> expr + expr .)
+    }               reduce using rule 10 (expr -> expr + expr .)
+    )               reduce using rule 10 (expr -> expr + expr .)
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+
+  ! *               [ reduce using rule 10 (expr -> expr + expr .) ]
+  ! /               [ reduce using rule 10 (expr -> expr + expr .) ]
+  ! %               [ reduce using rule 10 (expr -> expr + expr .) ]
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 36
+
+    (11) expr -> expr - expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 11 (expr -> expr - expr .)
+    +               reduce using rule 11 (expr -> expr - expr .)
+    -               reduce using rule 11 (expr -> expr - expr .)
+    <               reduce using rule 11 (expr -> expr - expr .)
+    ID              reduce using rule 11 (expr -> expr - expr .)
+    WRITE           reduce using rule 11 (expr -> expr - expr .)
+    WRITELN         reduce using rule 11 (expr -> expr - expr .)
+    WHILE           reduce using rule 11 (expr -> expr - expr .)
+    $end            reduce using rule 11 (expr -> expr - expr .)
+    }               reduce using rule 11 (expr -> expr - expr .)
+    )               reduce using rule 11 (expr -> expr - expr .)
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+
+  ! *               [ reduce using rule 11 (expr -> expr - expr .) ]
+  ! /               [ reduce using rule 11 (expr -> expr - expr .) ]
+  ! %               [ reduce using rule 11 (expr -> expr - expr .) ]
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 37
+
+    (12) expr -> expr * expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 12 (expr -> expr * expr .)
+    +               reduce using rule 12 (expr -> expr * expr .)
+    -               reduce using rule 12 (expr -> expr * expr .)
+    *               reduce using rule 12 (expr -> expr * expr .)
+    /               reduce using rule 12 (expr -> expr * expr .)
+    %               reduce using rule 12 (expr -> expr * expr .)
+    <               reduce using rule 12 (expr -> expr * expr .)
+    ID              reduce using rule 12 (expr -> expr * expr .)
+    WRITE           reduce using rule 12 (expr -> expr * expr .)
+    WRITELN         reduce using rule 12 (expr -> expr * expr .)
+    WHILE           reduce using rule 12 (expr -> expr * expr .)
+    $end            reduce using rule 12 (expr -> expr * expr .)
+    }               reduce using rule 12 (expr -> expr * expr .)
+    )               reduce using rule 12 (expr -> expr * expr .)
+
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! *               [ shift and go to state 26 ]
+  ! /               [ shift and go to state 27 ]
+  ! %               [ shift and go to state 28 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 38
+
+    (13) expr -> expr / expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 13 (expr -> expr / expr .)
+    +               reduce using rule 13 (expr -> expr / expr .)
+    -               reduce using rule 13 (expr -> expr / expr .)
+    *               reduce using rule 13 (expr -> expr / expr .)
+    /               reduce using rule 13 (expr -> expr / expr .)
+    %               reduce using rule 13 (expr -> expr / expr .)
+    <               reduce using rule 13 (expr -> expr / expr .)
+    ID              reduce using rule 13 (expr -> expr / expr .)
+    WRITE           reduce using rule 13 (expr -> expr / expr .)
+    WRITELN         reduce using rule 13 (expr -> expr / expr .)
+    WHILE           reduce using rule 13 (expr -> expr / expr .)
+    $end            reduce using rule 13 (expr -> expr / expr .)
+    }               reduce using rule 13 (expr -> expr / expr .)
+    )               reduce using rule 13 (expr -> expr / expr .)
+
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! *               [ shift and go to state 26 ]
+  ! /               [ shift and go to state 27 ]
+  ! %               [ shift and go to state 28 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 39
+
+    (14) expr -> expr % expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 14 (expr -> expr % expr .)
+    +               reduce using rule 14 (expr -> expr % expr .)
+    -               reduce using rule 14 (expr -> expr % expr .)
+    *               reduce using rule 14 (expr -> expr % expr .)
+    /               reduce using rule 14 (expr -> expr % expr .)
+    %               reduce using rule 14 (expr -> expr % expr .)
+    <               reduce using rule 14 (expr -> expr % expr .)
+    ID              reduce using rule 14 (expr -> expr % expr .)
+    WRITE           reduce using rule 14 (expr -> expr % expr .)
+    WRITELN         reduce using rule 14 (expr -> expr % expr .)
+    WHILE           reduce using rule 14 (expr -> expr % expr .)
+    $end            reduce using rule 14 (expr -> expr % expr .)
+    }               reduce using rule 14 (expr -> expr % expr .)
+    )               reduce using rule 14 (expr -> expr % expr .)
+
+  ! +               [ shift and go to state 24 ]
+  ! -               [ shift and go to state 25 ]
+  ! *               [ shift and go to state 26 ]
+  ! /               [ shift and go to state 27 ]
+  ! %               [ shift and go to state 28 ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 40
+
+    (15) expr -> expr < expr .
+    (10) expr -> expr . + expr
+    (11) expr -> expr . - expr
+    (12) expr -> expr . * expr
+    (13) expr -> expr . / expr
+    (14) expr -> expr . % expr
+    (15) expr -> expr . < expr
+
+    {               reduce using rule 15 (expr -> expr < expr .)
+    <               reduce using rule 15 (expr -> expr < expr .)
+    ID              reduce using rule 15 (expr -> expr < expr .)
+    WRITE           reduce using rule 15 (expr -> expr < expr .)
+    WRITELN         reduce using rule 15 (expr -> expr < expr .)
+    WHILE           reduce using rule 15 (expr -> expr < expr .)
+    $end            reduce using rule 15 (expr -> expr < expr .)
+    }               reduce using rule 15 (expr -> expr < expr .)
+    )               reduce using rule 15 (expr -> expr < expr .)
+    +               shift and go to state 24
+    -               shift and go to state 25
+    *               shift and go to state 26
+    /               shift and go to state 27
+    %               shift and go to state 28
+
+  ! +               [ reduce using rule 15 (expr -> expr < expr .) ]
+  ! -               [ reduce using rule 15 (expr -> expr < expr .) ]
+  ! *               [ reduce using rule 15 (expr -> expr < expr .) ]
+  ! /               [ reduce using rule 15 (expr -> expr < expr .) ]
+  ! %               [ reduce using rule 15 (expr -> expr < expr .) ]
+  ! <               [ shift and go to state 29 ]
+
+
+state 41
+
+    (17) expr -> ( expr ) .
+
+    {               reduce using rule 17 (expr -> ( expr ) .)
+    +               reduce using rule 17 (expr -> ( expr ) .)
+    -               reduce using rule 17 (expr -> ( expr ) .)
+    *               reduce using rule 17 (expr -> ( expr ) .)
+    /               reduce using rule 17 (expr -> ( expr ) .)
+    %               reduce using rule 17 (expr -> ( expr ) .)
+    <               reduce using rule 17 (expr -> ( expr ) .)
+    ID              reduce using rule 17 (expr -> ( expr ) .)
+    WRITE           reduce using rule 17 (expr -> ( expr ) .)
+    WRITELN         reduce using rule 17 (expr -> ( expr ) .)
+    WHILE           reduce using rule 17 (expr -> ( expr ) .)
+    $end            reduce using rule 17 (expr -> ( expr ) .)
+    }               reduce using rule 17 (expr -> ( expr ) .)
+    )               reduce using rule 17 (expr -> ( expr ) .)
+
+
+state 42
+
+    (9) statement -> WHILE expr { stmt_list } .
+
+    ID              reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+    WRITE           reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+    WRITELN         reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+    WHILE           reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+    $end            reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+    }               reduce using rule 9 (statement -> WHILE expr { stmt_list } .)
+
